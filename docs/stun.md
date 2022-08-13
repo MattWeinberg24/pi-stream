@@ -18,3 +18,5 @@ simple-log
 ```
 
 However for production use, it is wise to look into all of coturn's configuration options.
+
+For troubleshooting, enable `nice_debug` in [janus.jcfg](/config/janus.jcfg) and rebuild
