@@ -27,6 +27,7 @@ cd pi-stream
 4. Use the API
     * Test buttons available on the above site
     * Full API documentation available at http://\<PI IP\>:\<FASTAPI PORT\>/docs
+    * Selected topics detailed in [/docs](/docs)
 
 * Frontend debug messages can be found in the browser console
 * Backend debug messages can be found through docker's output
