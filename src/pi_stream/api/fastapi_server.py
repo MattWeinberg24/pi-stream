@@ -171,6 +171,7 @@ async def screenshot(tasks: BackgroundTasks,
                      width: int = 1920, height: int = 1080):
     """Stops WebRTC service (if it is on), takes and returns a screenshot,
     resets the USB, then restarts WebRTC service\n
+    (see docs/screenshot.md)\n
     params:\n
         process (str, optional): ffmpeg OR cv2 (default: cv2)\n
         inp_fmt (str, optional): input format jpg or png (default: png)\n
@@ -207,6 +208,7 @@ async def fast_screenshot_mode_start(sfmt: FastScreenshotFormat):
     """Stops Janus. Enters state where screenshots can be retrieved quicker
     than with the normal screenshot call.\n
     (Janus cannot be used while in this state)\n
+    (see docs/screenshot.md)\n
     body:\n
         inp_fmt (str, optional): input format jpg or png (default: png)\n
         out_fmt (str, optional): output format jpg or png (default: png)\n
@@ -220,7 +222,9 @@ async def fast_screenshot_mode_start(sfmt: FastScreenshotFormat):
 
 @app.post("/fast_screenshot/stop")
 async def fast_screenshot_mode_stop(tasks: BackgroundTasks):
-    """Exits fast screenshot mode"""
+    """Exits fast screenshot mode\n
+    (see docs/screenshot.md)
+    """
     result = xc.fast_screenshot_mode_stop()
 
     # reset USB in the background
@@ -232,7 +236,8 @@ async def fast_screenshot_mode_stop(tasks: BackgroundTasks):
 @app.get("/fast_screenshot")
 async def fast_screenshot():
     """Takes a screenshot while in fast screenshot mode.\n
-    Should be quicker than the normal screenshot method"""
+    Should be quicker than the normal screenshot method\n
+    (see docs/screenshot.md)"""
     result = xc.fast_screenshot()
 
     if result["success"]:
