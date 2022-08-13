@@ -42,3 +42,13 @@ cd pi-stream
 * 5002
   * gstreamer opus RTP audio stream
   * (Used internally)
+
+## Special Thanks
+
+KVM (Video) Janus plugin by Chris Taylor (https://github.com/catid)
+
+Janus Gateway server and javascript library by Meetecho (https://github.com/meetecho)
+
+Mentors and coworkers during my summer internship
+
+**Contact: mattweinberg@wustl.edu**
