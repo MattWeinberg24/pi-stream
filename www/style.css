@@ -1,0 +1,41 @@
+/* OPTIONS BAR */
+#topbar {
+    display: flex;
+    align-items: center;
+}
+#pre-options-container {
+    margin-left: 25px;
+}
+#post-options-container {
+    /* display: none; */
+    display: flex;
+    align-items: center;
+    margin-left: 25px;
+}
+#status-container {
+    margin-right: 25px;
+}
+
+/* API BAR */
+#apibar {
+    border-style: solid;
+    width: fit-content;
+}
+#apibar a {
+    margin-left: 20px;
+}
+#api-operations {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+#body-examples {
+    display: flex;
+    justify-content: space-around;
+}
+#request-body-container {
+    display: flex;
+}
+#request-body-container p {
+    margin-left: 50px;
+}

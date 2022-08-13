@@ -1,0 +1,26 @@
+FROM pi-stream-base:snapshot
+
+WORKDIR /home/pi
+
+# Configure Janus
+RUN cd /lib/arm-linux-gnueabihf/janus/transports && rm libjanus_mqtt* && rm libjanus_rabbitmq* && rm libjanus_websockets* && rm libjanus_nanomsg* && rm libjanus_pfunix*
+
+# Both Audio And Video
+RUN mkdir plugins && cp kvm/build/kvm_janus/libkvm_janus.so plugins && cp /lib/arm-linux-gnueabihf/janus/plugins/libjanus_streaming* plugins
+
+# Just Audio
+# RUN mkdir plugins && cp /lib/arm-linux-gnueabihf/janus/plugins/libjanus_streaming* plugins
+
+# Just Video
+# RUN mkdir plugins && cp kvm/build/kvm_janus/libkvm_janus.so plugins
+
+RUN cp /opt/vc/lib/libvchiq_arm.so /lib/arm-linux-gnueabihf/
+
+ENV LD_LIBRARY_PATH="/opt/vc/lib"
+ENV PATH /opt/vc/bin:/opt/vc/lib:$PATH
+
+COPY config/ /etc/janus/
+COPY src/pi_stream/ src/
+
+# Run
+CMD python3 src/hardware/xmlrpc_server.py

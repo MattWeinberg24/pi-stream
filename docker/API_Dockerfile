@@ -1,0 +1,12 @@
+FROM pi-stream-base:snapshot
+
+WORKDIR /home/pi
+
+# Janus Javascript Library
+RUN mkdir www && cd www && curl -o adapter.min.js https://raw.githubusercontent.com/catid/kvm/master/www/adapter.min.js
+
+COPY www/* www/
+COPY src/pi_stream/ src/
+
+# Run
+CMD python3 src/api/fastapi_server.py

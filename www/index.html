@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>pi-stream</title>
+<script type="text/javascript" src="adapter.min.js" ></script>
+<script type="text/javascript" src="janus.js" ></script>
+<link rel="icon" href="favicon.ico" type="favicon/ico" >
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+
+<div id="topbar">
+    <div id="pre-options-container">
+        <input type="text" name="stun" id="stun" placeholder="STUN/TURN Server">
+        <input type="text" name="stun-uname" id="stun-uname" placeholder="TURN Username">
+        <input type="text" name="stun-pword" id="stun-pword" placeholder="TURN Password">
+        <button type="button" id="start">Start/Reset</button>
+    </div>
+    
+    <div id="post-options-container">
+        <div id="status-container">
+            <div id="video-status-container">
+                <span>
+                    <b>Video:</b> Status: <span class="status" id="status-text"></span>
+                </span>
+                |
+                <span>
+                    Bitrate: <span class="bitrate" id="video-bitrate-text"></span>
+                </span>
+                |
+                <span>
+                    Resolution: <span class="resolution" id="resolution-text"></span>
+                </span>
+            </div>
+            
+            <div id="audio-status-container">
+                <span>
+                    <b>Audio:</b> Plugin: <span class="status" id="audio-text"></span>
+                </span>
+                <!-- Bitrate only works for video? -->
+                <!-- | 
+                <span>
+                    Bitrate: <span class="bitrate" id="audio-bitrate-text"></span>
+                </span> -->
+            </div>
+        </div>
+        <div id="recording-container">
+            <button type="button" id="record-btn">Record</button>
+            <button type="button" id="stop-btn">Stop</button>
+            <div id="clips"></div>
+        </div>
+    </div>
+
+
+    
+</div>
+
+
+
+<div id="video-container">
+    <video class="rounded centered hide" id="remotevideo" autoplay playsinline/>
+</div>
+<div id="audio-container">
+    <audio id="remoteaudio" autoplay playsinline/>
+</div>
+
+<div id="apibar">
+    <div id="api-operations">
+       
+    </div>       
+    <a href="/screenshot">Screenshot</a>
+    <a href="/fast_screenshot">Fast Screenshot</a>
+    <div id="request-body-container">
+        <textarea id="request-body" name="request-body" rows="8" cols="30" placeholder="Request Body"></textarea>
+        <div id="body-examples">
+            <p><b>Example for /set_format:</b><br>
+                {<br>
+                    "width": 1920,<br>
+                    "height": 1080,<br>
+                    "pixelformat": "MJPG",<br>
+                    "fps": 30<br>
+                }
+            </p>
+            <p><b>Example for /fast_screenshot_mode_start:</b><br>
+                {<br>
+                    "inp_fmt": "png",<br>
+                    "out_fmt": "png",<br>
+                    "width": 1920,<br>
+                    "height": 1080<br>
+                }
+            </p>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="main.js"></script>
+<script type="text/javascript" src="api_controller.js"></script>
+</body>
+</html>

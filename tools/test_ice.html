@@ -1,0 +1,36 @@
+<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+<div id='initial'>
+  <b>after createOffer:</b>
+  <div id='first'></div>
+</div>
+<div id='complete'>
+  <b>after null candidate was received:</b>
+  <div id='second'></div>
+</div>
+<script>
+  let config = {
+    iceServers: [
+      {
+        urls: "stun:stun.l.google.com:19302"
+      }
+    ]
+  }
+
+  let pc = new RTCPeerConnection(config)
+
+  pc.createDataChannel('foo'); // data channel sdps are nice and short
+
+  pc.onicecandidate = function(event) {
+    if (event.candidate === null) {
+      // now the SDP includes candidates. Send it to peer
+      document.getElementById('second').innerText = pc.localDescription.sdp;
+    }
+  };
+
+  pc.createOffer()
+  .then(function(offer) {
+    // offer does not contain candidates yet
+    document.getElementById('first').innerText = offer.sdp;
+    pc.setLocalDescription(offer);
+  });
+</script>

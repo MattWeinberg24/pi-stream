@@ -1,0 +1,27 @@
+FROM balenalib/rpi-raspbian:latest
+
+WORKDIR /home/pi
+
+# Install Linux Dependencies
+RUN apt update
+RUN apt install -y git janus janus-dev make cmake g++ libglib2.0-dev libturbojpeg0-dev
+
+RUN systemctl disable janus
+
+# Build RPi Userland
+RUN git clone https://github.com/raspberrypi/userland.git
+RUN cd userland && ./buildme
+
+# Build catid kvm plugin
+RUN git clone https://github.com/catid/kvm
+RUN cd kvm && mkdir build && cd build && cmake ..
+RUN cd kvm/build && make -j4
+
+RUN apt install -y libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-tools gstreamer1.0-alsa
+RUN apt install -y ffmpeg v4l-utils usbutils alsa-utils pip gettext
+RUN apt install -y libhdf5-dev libhdf5-serial-dev libatlas-base-dev libjasper-dev libgtkmm-3.0-1v5
+
+#  Install Python Dependencies
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+

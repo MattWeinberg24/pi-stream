@@ -1,0 +1,48 @@
+version: "3"
+   
+services:
+
+  api:
+    image: pi-stream-api:snapshot
+    build:
+      dockerfile: docker/API_Dockerfile
+    container_name: api
+    depends_on:
+      - hardware
+    stdin_open: true
+    tty: true
+    network_mode: "host"
+    volumes:
+      - /home/pi/recordings:/home/pi/recordings
+    # EDIT ARGUMENTS HERE
+    #environment:
+    #  - HOST=0.0.0.0 # Host for FastAPI server
+    #  - PORT=8000 # Port for FastAPI server
+    #  - XMLRPC_ADDR=http://localhost:1234 # Address to access XMLRPC server on, including port
+    #  - STATIC_FILES_DIR=/home/pi/www # Directory containing HTML/JS files (for development)
+    #  - RECORDING_FILES_DIR=/home/pi/recordings # Directory containing recordings (volume)
+    #  - VERBOSE=1
+
+  hardware:
+    image: pi-stream-hardware:snapshot
+    build:
+      dockerfile: docker/Hardware_Dockerfile
+    container_name: hardware
+    stdin_open: true
+    tty: true
+    network_mode: "host"
+    privileged: true
+    volumes:                 
+      - /home/pi/recordings:/home/pi/recordings
+    # EDIT ARGUMENTS HERE
+    #environment:
+    #  - PORT=1234 # Port for this xmlrpc server
+    #  - STUN=1  # Whether to use STUN/TURN
+    #  - STUN_ADDR=stun.l.google.com:19302 # STUN server IP
+    #  - ALSA=hw:3 # ALSA device name (arecord -l to check)
+    #  - ID_VENDOR=0x534d # First half of 'lsusb' device id (hex)
+    #  - ID_PRODUCT=0x2109 # Second half of 'lsusb' device id (hex)
+    #  - SS_DIR=/home/pi # Path where screenshots are saved (for development)
+    #  - PLUGINS_DIR=/home/pi/plugins # janus plugin path (for development)
+    #  - RECORDING_FILES_DIR=/home/pi/recordings # Directory containing recordings (volume)
+    #  - VERBOSE=1
